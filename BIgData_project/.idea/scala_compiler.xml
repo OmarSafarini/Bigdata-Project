@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <option name="separateProdTestSources" value="true" />
+    <profile name="sbt 1" modules="BIgData_project,BIgData_project.main,BIgData_project.test,bigdata_project_1832,bigdata_project_1832.main,bigdata_project_1832.test" />
+  </component>
+</project>
