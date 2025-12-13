@@ -19,6 +19,19 @@ const userRouter = require('./routes/user.routes')
 app.use('/api/users', userRouter);
 
 
+// async function run(){
+//   const theUsers = require('./models/User')
+
+//   const cursor = theUsers.find().cursor();
+
+//   for(let doc = await cursor.next(); doc != null; doc = await cursor.next()){
+//     console.log(doc.ingredients)
+//   }
+
+// }
+ 
+// run()
+
 
 app.listen(3000, () => {
   console.log("Server started on PORT 3000");

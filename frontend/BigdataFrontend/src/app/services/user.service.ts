@@ -27,4 +27,7 @@ export class UserService {
     return this.http.put(`${this.apiUrl}/${userId}/ingredients`, { ingredient });
   }
 
+  removeIngredient(userId: string, ingredient: string) {
+    return this.http.put(`${this.apiUrl}/${userId}/ingredients/remove`, { ingredient });
+  }
 }

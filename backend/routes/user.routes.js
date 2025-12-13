@@ -8,4 +8,6 @@ router.get('/:id', userController.getUserById)
 
 router.put('/:id/ingredients', userController.addIngredient)
 
+router.put('/:id/ingredients/remove', userController.deleteIngredient)
+
 module.exports = router;

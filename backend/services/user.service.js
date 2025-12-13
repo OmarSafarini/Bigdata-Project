@@ -13,7 +13,17 @@ class UserService{
 
     async addIngredient(id , ingredient){
         const updatedUser = await User.findByIdAndUpdate(id,
-            {$push : {ingredients: ingredient}}
+            {$push : {ingredients: ingredient}},
+            { new: true }
+        )
+
+        return updatedUser
+    }
+
+    async deleteIngredient(id, ingredient){
+         const updatedUser = await User.findByIdAndUpdate(id,
+           { $pull: { ingredients: ingredient } },
+           { new: true }
         )
 
         return updatedUser

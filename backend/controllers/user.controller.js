@@ -27,12 +27,23 @@ class UserController{
 
     async addIngredient(req, res){
         try{
-            const updatedUser = userService.addIngredient(req.params.id, req.body)
+            const updatedUser = await userService.addIngredient(req.params.id, req.body.ingredient)
             res.json(updatedUser)
         }catch(err){
             res.status(500).json({ error: err.message });
         }
     }
+
+    async deleteIngredient(req, res){
+        try{
+            const updatedUser = await userService.deleteIngredient(req.params.id, req.body.ingredient)
+            res.json(updatedUser)
+        }catch(err){
+            res.status(500).json({ error: err.message });
+        }
+    }
+
+
 }
 
 module.exports = new UserController()
