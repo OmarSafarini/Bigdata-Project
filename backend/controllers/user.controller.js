@@ -1,5 +1,7 @@
 const userService = require('../services/user.service')
 
+const  Kafka  = require('kafkajs');
+
 class UserController{
     async addUser(req, res){
         try{
@@ -28,7 +30,9 @@ class UserController{
     async addIngredient(req, res){
         try{
             const updatedUser = await userService.addIngredient(req.params.id, req.body.ingredient)
+
             res.json(updatedUser)
+
         }catch(err){
             res.status(500).json({ error: err.message });
         }
