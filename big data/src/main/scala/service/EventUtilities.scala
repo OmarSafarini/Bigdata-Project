@@ -5,9 +5,9 @@ import models.IngredientEvent
 import play.api.libs.json._
 
 
-object KafkaEventsHandler {
+object EventUtilities {
 
-  def getIngredientEvent(jsonMsg: String): IngredientEvent = {
+  def convertJsonToIngredient(jsonMsg: String): IngredientEvent = {
     val json = Json.parse(jsonMsg)
 
     IngredientEvent(

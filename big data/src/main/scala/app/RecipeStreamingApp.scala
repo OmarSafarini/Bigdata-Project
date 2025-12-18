@@ -4,62 +4,73 @@ import models._
 import bloomFilter._
 import service._
 
-import data.kafka.KafkaSource
-import data.spark.SparkStreamingContext
+import data.kafka.KafkaStructured
+import data.spark.SparkSessionManager
 import data.mongo.RecipeRepository
+import service.UserService
+
+import org.apache.spark.sql.Dataset
 
 object RecipeStreamingApp {
 
   def main(args: Array[String]): Unit = {
 
-    val ssc = SparkStreamingContext.create()
-    val stream = KafkaSource.createStream(ssc)
+    val spark = SparkSessionManager.getOrCreateMongoSession()
+    spark.sparkContext.setLogLevel("ERROR")
+    System.setProperty("hadoop.home.dir", "C:\\")
+    spark.conf.set("spark.hadoop.io.native.lib.available", "false")
 
 
-    val recipes = RecipeRepository.loadAllRecipes()
+    import spark.implicits._
+    val stream = KafkaStructured.createStream(spark)
 
-
+    val recipes = RecipeRepository.loadAllRecipes(spark)
     val ingredientBloom = new BloomFilterHelper(1000000, 0.01)
-    val allIngredients = recipes.flatMap(_.ingredients).distinct
+    val allIngredients = recipes.flatMap(_.ingredients).distinct.collect().toSeq
     ingredientBloom.addAll(allIngredients)
+    println("Number of Ing: " , allIngredients.size)
+
 
     val validationService = new IngredientValidationService(ingredientBloom)
-    val recommendationService = new RecommendationService(recipes)
+    //    val recommendationService = new RecommendationService(recipes)
 
+    val checkpointPath = "file:///C:/tmp/spark-checkpoint"
 
-    stream.map(_.value).foreachRDD { rdd =>
-      if (!rdd.isEmpty()) {
-        val events = rdd.collect()
+    val query = stream
+      .selectExpr("CAST(value AS STRING)")
+      .as[String]
+      .writeStream
+      .option("checkpointLocation", checkpointPath)
+      .foreachBatch { (batchDF: Dataset[String], batchId: Long) =>
+        if (!batchDF.isEmpty) {
+          val events = batchDF.collect()
+          events.foreach { jsonMsg =>
+            try {
+              val ingEvent = EventUtilities.convertJsonToIngredient(jsonMsg)
 
-        events.foreach { jsonMsg =>
-          try {
+              println(s"\nUser: ${ingEvent.userId} | Action: ${ingEvent.action} | Ingredient: ${ingEvent.ingredient}")
 
-            val ingEvent = KafkaEventsHandler.getIngredientEvent(jsonMsg)
+              if (ingEvent.action == "ADD") {
+                if (validationService.shouldRunRecommendation(ingEvent.ingredient)) {
+                  println("Ingredient exists in dataset ... run recommendation")
+                } else {
+                  println("Ingredient not in dataset, skip recommendation")
+                }
 
-            println(s"\nUser: ${ingEvent.userId} | Action: ${ingEvent.action} | Ingredient: ${ingEvent.ingredient}")
-
-            if (ingEvent.action == "ADD") {
-              if (validationService.shouldRunRecommendation(ingEvent.ingredient)) {
-
-                println("Ingredient exists in dataset ... run recommendation")
+                UserService.addIngredient(ingEvent.userId, ingEvent.ingredient)
 
               } else {
-                println("Ingredient not in dataset, skip recommendation")
+                println("The action is REMOVE ... run recommendation")
               }
-            }
-            else {
-              println("The action is REMOVE ... run recommendation")
-            }
 
-          } catch {
-            case e: Exception => println(s"Parse error: ${e.getMessage}")
+            } catch {
+              case e: Exception => println(s"Parse error: ${e.getMessage}")
+            }
           }
         }
       }
-    }
+      .start()
 
-
-    ssc.start()
-    ssc.awaitTermination()
+    query.awaitTermination()
   }
 }

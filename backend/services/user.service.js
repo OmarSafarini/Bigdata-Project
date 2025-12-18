@@ -25,28 +25,28 @@ class UserService{
     }
 
     async addIngredient(id , ingredient){
-        const updatedUser = await User.findByIdAndUpdate(id,
-            {$push : {ingredients: ingredient}},
-            { new: true }
-        )
+        // const updatedUser = await User.findByIdAndUpdate(id,
+        //     {$push : {ingredients: ingredient}},
+        //     { new: true }
+        // )
 
         await this.initialize();
 
         await this.kafkaHelper.sendEvent(id, ingredient, 'ADD');
 
-        return updatedUser
+        // return updatedUser
     }
 
     async deleteIngredient(id, ingredient){
-         const updatedUser = await User.findByIdAndUpdate(id,
-           { $pull: { ingredients: ingredient } },
-           { new: true }
-        )
+        //  const updatedUser = await User.findByIdAndUpdate(id,
+        //    { $pull: { ingredients: ingredient } },
+        //    { new: true }
+        // )
 
         await this.initialize();
         await this.kafkaHelper.sendEvent(id, ingredient, 'REMOVE');
 
-        return updatedUser
+        // return updatedUser
     }
 
 }
