@@ -1,0 +1,40 @@
+<div class="page-wrapper" *ngIf="recipe">
+  <div class="recipe-card">
+    <h2 class="recipe-title">{{ recipe.title }}</h2>
+
+    <div class="section">
+      <h5>Ingredients</h5>
+      <p>{{ recipe.ingredients }}</p>
+    </div>
+
+    <div class="section">
+      <h5>Directions</h5>
+      <p>{{ recipe.directions }}</p>
+    </div>
+
+    <div class="section">
+      <h5>NER</h5>
+      <p>{{ recipe.NER }}</p>
+    </div>
+
+    <div class="rating-section">
+      <h5>Rate this recipe</h5>
+      <div class="stars">
+        <span
+          *ngFor="let star of stars; let i = index"
+          (click)="!hasRated && setRating(i + 1)"
+          (mouseenter)="setHover(i + 1)"
+          (mouseleave)="clearHover()"
+          [class.filled]="i < (hoverRating || rating)"
+          [class.disabled]="hasRated"
+        >
+          ★
+        </span>
+      </div>
+
+      <p class="rating-text" *ngIf="rating">
+        You rated this recipe {{ rating }} / 5
+      </p>
+    </div>
+  </div>
+</div>

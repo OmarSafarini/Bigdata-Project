@@ -1,0 +1,72 @@
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f6f8;
+  padding: 40px 20px;
+}
+
+.recipe-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 900px;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.section {
+  margin-bottom: 25px;
+}
+
+.section h5 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.section p {
+  line-height: 1.7;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+.rating-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.stars {
+  display: inline-flex;
+  justify-content: center;
+  font-size: 2.2rem;
+}
+
+.stars span {
+  color: #ccc; 
+  cursor: pointer;
+  transition: color 0.2s;
+  margin: 0 2px;
+  position: relative;
+}
+
+.stars span.filled {
+  color: #ffc107; 
+}
+
+.stars span.disabled {
+  cursor: default;
+  color: #ffc107; 
+}
+
+.rating-text {
+  margin-top: 10px;
+  font-weight: 500;
+}
