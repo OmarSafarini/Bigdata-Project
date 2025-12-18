@@ -29,8 +29,8 @@ class UserController{
 
     async addIngredient(req, res){
         try{
-            const updatedUser = await userService.addIngredient(req.params.id, req.body.ingredient)
-
+            await userService.addIngredient(req.params.id, req.body.ingredient)
+            const updatedUser = await userService.getUserById(req.params.id)
             res.json(updatedUser)
 
         }catch(err){
@@ -40,7 +40,8 @@ class UserController{
 
     async deleteIngredient(req, res){
         try{
-            const updatedUser = await userService.deleteIngredient(req.params.id, req.body.ingredient)
+            await userService.deleteIngredient(req.params.id, req.body.ingredient)
+            const updatedUser = await userService.getUserById(req.params.id)
             res.json(updatedUser)
         }catch(err){
             res.status(500).json({ error: err.message });
