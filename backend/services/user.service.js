@@ -1,5 +1,4 @@
 const User = require('../models/User')
-
 class UserService{
 
     async createUser(data){

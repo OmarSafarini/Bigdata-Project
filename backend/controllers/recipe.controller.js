@@ -1,0 +1,28 @@
+const recipeService = require("../services/recipe.service");
+
+class RecipeController {
+    async getAll(req, res) {
+    try {
+            const limit = parseInt(req.query.limit) || 10;
+            const page = parseInt(req.query.page) || 1;
+            const recipes = await recipeService.getAllRecipes(page, limit);
+            res.json(recipes);
+        } catch (err) {
+            res.status(500).json({ error: err.message } );
+        }
+    }
+
+    async getById(req, res) {
+        try {
+            const id = req.params.id;
+            const recipe = await recipeService.getRecipeById(id);
+            if (!recipe) return res.status(404).json({ message: 'Recipe not found ' + recipe});
+            res.json(recipe);
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    }
+
+}
+
+module.exports = new RecipeController();

@@ -1,0 +1,10 @@
+import { Routes } from '@angular/router';
+import { UserProfileComponent } from './components/user-profile/user-profile';
+import { LandingPage } from './landing-page/landing-page';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail';
+
+export const routes: Routes = [
+  { path: 'user-info',component: UserProfileComponent,}, 
+  { path: '' , component: LandingPage,},
+  { path: 'recipes/:id', component: RecipeDetailComponent }
+];

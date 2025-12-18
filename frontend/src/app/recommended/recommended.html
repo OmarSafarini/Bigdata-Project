@@ -1,0 +1,37 @@
+<!-- recommended.component.html -->
+<div class="mb-4">
+  <input type="text" class="form-control" placeholder="Search ingredients..." [(ngModel)]="searchText" (input)="filterRecipes()">
+</div>
+
+<div *ngIf="filteredRecommendations.length">
+  <div id="carouselExampleControls" class="carousel slide mb-5" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item" *ngFor="let rec of filteredRecommendations; let i = index" [class.active]="i === 0">
+        <div class="d-flex justify-content-center">
+          <div class="card" style="width: 22rem;">
+            <img *ngIf="rec.recipe.link" class="card-img-top" [src]="rec.recipe.link" alt="{{ rec.recipe.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ rec.recipe.title }}</h5>
+              <p class="card-text text-truncate" [title]="rec.recipe.ingredients.join(', ')">
+                <strong>Ingredients:</strong> {{ rec.recipe.ingredients.join(', ') }}
+              </p>
+              <p class="card-text text-truncate" [title]="rec.recipe.directions.join(', ')">
+                <strong>Directions:</strong> {{ rec.recipe.directions.join(', ') }}
+              </p>
+              <a [href]="rec.recipe.link" target="_blank" class="btn btn-primary mt-auto">Check</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+</div>
+
+<p *ngIf="!filteredRecommendations.length">No recommendations found.</p>
