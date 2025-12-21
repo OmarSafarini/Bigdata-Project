@@ -36,6 +36,33 @@ object UserDataAccess {
     }
   }
 
+
+  def removeIngredientFromUser(userId: String, ingredient: String): Unit = {
+    try {
+      val filter = equal("_id", new ObjectId(userId))
+      val update = pull("ingredients", ingredient.toLowerCase.trim)
+
+      val result = Await.result(
+        usersCollection.updateOne(filter, update).toFuture(),
+        5.seconds
+      )
+
+      if (result.getModifiedCount > 0) {
+        println(s"Removed '$ingredient' from user $userId")
+      } else {
+        println(s"User $userId not found or ingredient does not exist")
+      }
+
+    } catch {
+      case e: Exception =>
+        println(s"Error removing ingredient: ${e.getMessage}")
+    }
+  }
+
+
+
+
+
   def findUserById(userId: String): UserInfo = {
     try {
       val filter = equal("_id", new ObjectId(userId))

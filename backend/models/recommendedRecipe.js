@@ -1,15 +1,32 @@
 const mongoose = require('mongoose');
 
-const RecommendedRecipeSchema = new mongoose.Schema({
-  userId: { type: Number, required: true },
-  recipeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Recipe', required: true },
-  recipe: {
-    title: String,
-    ingredients: [String],
-    directions: [String],
-    link: String,
-    source: String,
-    NER: [String]
+const RecommendedRecipeSchema = new mongoose.Schema(
+  {
+
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true 
+      },
+
+    NER:{
+      type: String,
+      required: true
+    },
+  title: {
+    type: String,
+    required: true
+  },
+  direction: {
+    type: String,
+    required: true
+  },
+  ingredients: {
+    type: String, 
+    required: true
+  },
+  rating: {
+    type: Number,
+    default: 0
   }
 }, { collection: 'recommended_recipes', timestamps: true });
 

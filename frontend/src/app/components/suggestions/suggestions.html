@@ -1,0 +1,30 @@
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item" *ngFor="let recipe of recipes; let i = index" [class.active]="i === 0">
+      <div class="d-flex justify-content-center mt-3 mb-3">
+        <div class="card" style="width: 22rem;">
+          <img class="card-img-top" src="assets/food_background.png" alt="Recipe Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ recipe.title }}</h5>
+            <p class="card-text"><strong>Ingredients:</strong> {{ recipe.NER }}</p>
+
+            <p class="card-text"><strong>Directions:</strong></p>
+            <ul>
+              <li *ngFor="let step of recipe.direction">{{ step }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+

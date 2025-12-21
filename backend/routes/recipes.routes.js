@@ -6,4 +6,6 @@ router.get('/', recipeController.getAll);
 
 router.get('/:id', recipeController.getById);
 
+router.get('/title/:title', recipeController.getRecipeByTitle);
+
 module.exports = router;

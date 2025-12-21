@@ -109,7 +109,7 @@ object Recommendation {
       val title: String = row.getAs[String]("title")
       val directions: String = row.getAs[String]("directions")
       val NER: String = row.getAs[String]("ingredients")
-      RecommendationRepository.addRecommendation(ingredients,directions,title,rating,NER)
+      RecommendationRepository.addRecommendation(userIds,ingredients,directions,title,rating,NER)
     }
 
           println("=== Recommended Recipes for user " + userId + " ===")
