@@ -4,21 +4,22 @@ import { Recipes } from '../models/recipes.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import {Suggestions} from '../components/suggestions/suggestions';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.css'],
-  imports: [CommonModule, RouterModule, FormsModule]
+  imports: [CommonModule, RouterModule, FormsModule, Suggestions]
 })
 export class Homepage implements OnInit {
 
   isSearching: boolean = false;
   recipes: Recipes[] = [];
   filteredRecipes: Recipes[] = [];
-  page: number = 1;        
-  limit: number = 10;     
-  searchText: string = ''; 
+  page: number = 1;
+  limit: number = 10;
+  searchText: string = '';
 
   constructor(private recipesService: RecipesService) {}
 
@@ -28,9 +29,9 @@ export class Homepage implements OnInit {
 
   loadRecipes() {
     this.recipesService.getRecipes(this.page, this.limit).subscribe((data: Recipes[]) => {
-      this.recipes = this.recipes.concat(data); 
+      this.recipes = this.recipes.concat(data);
       this.filteredRecipes = this.recipes; // بشكل افتراضي كل الوصفات تظهر
-      this.page++; 
+      this.page++;
     });
   }
 

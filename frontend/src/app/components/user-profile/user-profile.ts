@@ -27,7 +27,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadData(): void {
-    this.userService.getUserById('694436a53401ec747acebea6').subscribe({
+    this.userService.getUserById('6932c445a283bf301c59bcd8').subscribe({
       next: data => {
         this.user = data;
       },

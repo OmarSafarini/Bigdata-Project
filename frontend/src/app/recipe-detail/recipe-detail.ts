@@ -19,7 +19,7 @@ export class RecipeDetailComponent implements OnInit {
   hoverRating = 0;
   hasRated = false;
 
-  userId = "694436a53401ec747acebea6"; // مؤقت
+  userId = "6932c445a283bf301c59bcd8"; // مؤقت
 
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +40,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   setRating(value: number) {
-    if (!this.recipe || this.hasRated) return; 
+    if (!this.recipe || this.hasRated) return;
 
     const ratingPayload = {
       userId: this.userId,
@@ -51,7 +51,7 @@ export class RecipeDetailComponent implements OnInit {
     this.recipesService.rateRecipe(ratingPayload)
       .subscribe(res => {
         console.log('Saved rating', res);
-        this.rating = value;  
+        this.rating = value;
         this.hasRated = true;
       });
   }

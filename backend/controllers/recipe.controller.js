@@ -30,6 +30,18 @@ class RecipeController {
             res.status(500).json({ error: err.message });
         }
     }
+
+    async getRecipeByTitle (req, res) {
+        try {
+            const title = req.params.title;
+            const recipe = await Recipe.findOne({ title: title });
+            if (!recipe) return res.status(404).json({ message: 'Recipe not found' });
+            res.json(recipe);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: 'Server error' });
+        }
+    }
 }
 
 module.exports = new RecipeController();

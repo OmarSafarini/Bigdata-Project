@@ -49,13 +49,15 @@ object RecipeStreamingApp {
 //              println(s"\nUser: ${ingEvent.userId} | Action: ${ingEvent.action} | Ingredient: ${ingEvent.ingredient}")
 
               if (ingEvent.action == "ADD") {
+                UserService.addIngredient(ingEvent.userId, ingEvent.ingredient)
                 if (validationService.shouldRunRecommendation(ingEvent.ingredient)) {
                   Recommendation.recommendation(recipesDS =recipes, ingEvent.userId)
                 } else {
                   println("Ingredient not in dataset, skip recommendation")
                 }
-                UserService.addIngredient(ingEvent.userId, ingEvent.ingredient)
               } else {
+
+                UserService.removeIngredient(ingEvent.userId, ingEvent.ingredient)
                 Recommendation.recommendation(recipesDS =recipes, ingEvent.userId )
               }
             } catch {

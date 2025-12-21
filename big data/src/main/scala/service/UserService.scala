@@ -8,4 +8,8 @@ object UserService {
     UserDataAccess.addIngredientToUser(userId, ingredient)
   }
 
+  def removeIngredient(userId: String, ingredient: String): Unit = {
+    UserDataAccess.removeIngredientFromUser(userId, ingredient)
+  }
+
 }
