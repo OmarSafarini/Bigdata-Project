@@ -35,6 +35,21 @@ class KafkaHelper {
         console.log(`Event sent: ${action} - ${ingredient} for user ${userId}`);
     }
 
+    async sendRatingEvent(userId, recipeId, rating) {
+        await this.producer.send({
+            topic: 'user-ratings-events',
+            messages: [{
+                value: JSON.stringify({
+                    userId,
+                    recipeId,
+                    rating
+                })
+            }]
+        });
+        
+        console.log(`User id: ${typeof(userId)} - recipe id: ${typeof(recipeId)} rating :  ${rating}`);
+    }
+
     async disconnect() {
         if (this.connected) {
             await this.producer.disconnect();

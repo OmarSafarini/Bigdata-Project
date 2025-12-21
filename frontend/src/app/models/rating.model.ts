@@ -1,5 +1,5 @@
 export class Rating {
-  userId: number=0;
+  userId: String="";
   recipeId: string="";
   rating: number=0;
 }

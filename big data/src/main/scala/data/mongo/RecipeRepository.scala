@@ -29,7 +29,10 @@ object RecipeRepository {
 
     val recipesDS: Dataset[Recipe] = cleanedDF.select(
       col("_id").as("id"),
-      coalesce(col("NER"), array()).as("ingredients")
+      col("title").as("title"),
+      col("directions").as("directions"),
+      col("ingredients").as("ingredients"),
+      coalesce(col("NER"), array()).as("NER")
     ).as[Recipe]
 
     recipesDS

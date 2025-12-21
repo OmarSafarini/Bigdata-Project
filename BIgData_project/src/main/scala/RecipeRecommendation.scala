@@ -25,23 +25,23 @@ object RecipeRecommendation {
     // 1) SIMPLE DATA
     /////////////////////////////////////////////////////////////
 
-    val clientIngredients = Seq(
-      (0, Array("Eggs", "Cheese", "Tomato"))
-    )
+      val clientIngredients = Seq(
+        (0, Array("Eggs", "Cheese", "Tomato"))
+      ) // userId , ingredients
 
-    val userRatings = Seq(
-      (0, 0, 5),
-      (0, 1, 4),
-      (0, 2, 3),
-      (0, 3, 4)
-    )
+      val userRatings = Seq(
+        (0, 0, 5),
+        (0, 1, 4),
+        (0, 2, 3),
+        (0, 3, 4)
+      ) // userId , recipeId , rating
 
-    val recipes = Seq(
-      (0, "recipe1", Array("Eggs", "Cheese", "Bread")),
-      (1, "recipe2", Array("Chicken", "Rice", "Pepper")),
-      (2, "recipe3", Array("Spinach", "Eggs", "Onion")),
-      (3, "recipe4", Array("Cheese", "Lettuce", "Bread"))
-    )
+      val recipes = Seq(
+        (0,Array("Eggs", "Cheese", "Bread")),
+        (1,Array("Chicken", "Rice", "Pepper")),
+        (2,Array("Spinach", "Eggs", "Onion")),
+        (3,Array("Cheese", "Lettuce", "Bread"))
+      )// reciperId , ingredients
 
     val clientIngredientsDF = clientIngredients.toDF("userId", "ingredients")
     val recipesDF = recipes.toDF("recipeId", "title", "ingredients")

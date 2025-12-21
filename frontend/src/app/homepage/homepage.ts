@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class Homepage implements OnInit {
 
+  isSearching: boolean = false;
   recipes: Recipes[] = [];
   filteredRecipes: Recipes[] = [];
   page: number = 1;        
@@ -33,6 +34,17 @@ export class Homepage implements OnInit {
     });
   }
 
+  loadFilteredRecipes(search: string) {
+    this.recipesService
+      .getRecipesByIngredient(search, this.page, this.limit)
+      .subscribe((data: Recipes[]) => {
+        if (data.length === 0) return;
+
+        this.filteredRecipes = [...this.filteredRecipes, ...data];
+        this.page++;
+      });
+  }
+
   truncateText(text: string, limit: number): string {
     if (!text) return '';
     return text.length > limit ? text.substring(0, limit) + '...' : text;
@@ -42,17 +54,24 @@ export class Homepage implements OnInit {
     const search = this.searchText.toLowerCase().trim();
 
     if (!search) {
+      this.isSearching = false;
       this.filteredRecipes = this.recipes;
       return;
     }
 
-    this.filteredRecipes = this.recipes.filter(recipe => {
-      try {
-        const nerArray = JSON.parse(recipe.NER as unknown as string) as string[];
-        return nerArray.some(ingredient => ingredient.toLowerCase().includes(search));
-      } catch {
-        return false;
-      }
-    });
+    this.isSearching = true;
+    this.page = 1;
+    this.filteredRecipes = [];
+
+    this.loadFilteredRecipes(search);
   }
+
+  onShowMore() {
+    if (this.isSearching) {
+      this.loadFilteredRecipes(this.searchText);
+    } else {
+      this.loadRecipes();
+    }
+  }
+
 }

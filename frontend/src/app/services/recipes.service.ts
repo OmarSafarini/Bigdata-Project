@@ -25,4 +25,11 @@ export class RecipesService {
   rateRecipe(payload: Rating) {
     return this.http.post(this.ratingsUrl, payload);
   }
+
+  getRecipesByIngredient(search: string, page: number, limit: number): Observable<Recipes[]> {
+    return this.http.get<Recipes[]>(
+      `${this.apiUrl}?ingredient=${search}&page=${page}&limit=${limit}`
+    );
+}
+
 }

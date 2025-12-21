@@ -1,12 +1,14 @@
 package data.mongo
 
 import config.MongoConfig
+import models.{Recipe, UserInfo}
 import org.mongodb.scala._
 import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model.Updates._
 import org.bson.types.ObjectId
 import scala.concurrent.Await
 import scala.concurrent.duration._
+import scala.jdk.CollectionConverters.asScalaBufferConverter
 
 
 object UserDataAccess {
@@ -34,4 +36,24 @@ object UserDataAccess {
     }
   }
 
+  def findUserById(userId: String): UserInfo = {
+    try {
+      val filter = equal("_id", new ObjectId(userId))
+      val futureUser = usersCollection.find(filter).first().toFuture()
+      val doc = Await.result(futureUser, 5.seconds)
+
+      if (doc != null) {
+        UserInfo(
+          id = doc.getObjectId("_id").toHexString,
+          ingredients = doc.getList("ingredients", classOf[String]).asScala.toSeq
+        )
+      } else {
+        UserInfo(id = userId, ingredients = Seq.empty)
+      }
+    } catch {
+      case e: Exception =>
+        println(s"Error finding user $userId: ${e.getMessage}")
+        UserInfo(id = userId, ingredients = Seq.empty)
+    }
+  }
 }

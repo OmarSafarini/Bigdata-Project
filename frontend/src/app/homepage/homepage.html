@@ -61,7 +61,7 @@
       <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ recipe.title }}</h5>
         <p class="card-text text-truncate" [title]="recipe.ingredients.join(', ')">
-          <strong>Ingredients:</strong> {{ recipe.ingredients }}
+          <strong>Ingredients:</strong> {{ recipe.ingredients.join(', ') }}
         </p>
         <p class="card-text text-truncate" [title]="recipe.directions.join(', ')">
           <strong>Directions:</strong> {{ truncateText(recipe.directions.join(', '), 30) }}
@@ -73,6 +73,6 @@
 </div>
 
   <div class="text-center mt-4">
-    <button class="btn btn-success" (click)="loadRecipes()">Show More</button>
+    <button class="btn btn-success" (click)="onShowMore()"> Show More </button> 
   </div>
 </div>

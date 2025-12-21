@@ -5,9 +5,9 @@ import org.apache.spark.sql.SparkSession
 
 object SparkSessionManager {
 
-  def getOrCreateMongoSession(): SparkSession = {
+  def getOrCreateMongoSession(spark_config: String ): SparkSession = {
     SparkSession.builder()
-      .appName(SparkConfig.sparkAppName)
+      .appName(spark_config)
       .master(SparkConfig.sparkMaster)
       .config("spark.mongodb.read.connection.uri", MongoConfig.uri)
       .config("spark.mongodb.write.connection.uri", MongoConfig.uri)

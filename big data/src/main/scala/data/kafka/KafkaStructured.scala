@@ -15,4 +15,16 @@ object KafkaStructured {
       .option("startingOffsets", "latest")
       .load()
   }
+
+  def createRatingStream(spark: SparkSession): DataFrame = {
+    spark
+      .readStream
+      .format("kafka")
+      .option("kafka.bootstrap.servers", KafkaConfig.bootstrapServers)
+      .option("subscribe", KafkaConfig.ratingTopics.mkString(","))
+      .option("startingOffsets", "latest")
+      .load()
+  }
+
+
 }
