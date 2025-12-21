@@ -6,4 +6,6 @@ object MongoConfig {
   val databaseName = "recipes"
   val recipeCollectionName = "recipes"
   val usersCollectionName = "users"
+  val ratingCollectionName = "rate"
+  val recommendedCollectionName = "recommended_recipes"
 }

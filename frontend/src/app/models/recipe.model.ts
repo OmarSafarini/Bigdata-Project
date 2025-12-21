@@ -5,5 +5,5 @@ export class Recipe {
   directions: string = '';
   link: string = '';
   source: string = '';
-  NER: string = '';
+  NER: string[] = [];
 } 

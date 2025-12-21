@@ -20,7 +20,8 @@ lazy val root = (project in file("."))
       "com.typesafe.play" %% "play-json" % "2.10.8",
       "org.mongodb.spark" %% "mongo-spark-connector" % "10.5.0" exclude("org.mongodb", "mongo-java-driver"),
       "org.mongodb" % "mongodb-driver-sync" % "5.6.2",
-      "org.mongodb.scala" %% "mongo-scala-driver" % "5.6.2"
+      "org.mongodb.scala" %% "mongo-scala-driver" % "5.6.2",
+      "org.apache.spark" %% "spark-mllib" % "3.5.1"
     )
   )
 

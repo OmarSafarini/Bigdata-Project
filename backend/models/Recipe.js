@@ -6,7 +6,7 @@ const RecipeSchema = new mongoose.Schema({
   directions: String,
   link: String,
   source: String,
-  NER: String
-}, { collection: "recipes_db" });
+  NER: [String]
+}, { collection: "recipes" });
 
 module.exports = mongoose.model("Recipe", RecipeSchema);

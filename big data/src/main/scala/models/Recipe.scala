@@ -2,5 +2,8 @@ package models
 
 case class Recipe(
                    id: String,
-                   ingredients: Seq[String]
+                   title: String,
+                   directions : String,
+                   ingredients : String,
+                   NER: Seq[String]
                  )

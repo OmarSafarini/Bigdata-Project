@@ -5,7 +5,7 @@ class RateController {
     try {
       const { userId, recipeId, rating } = req.body;
 
-      if (userId === undefined || !recipeId || rating === undefined) {
+      if (!userId|| !recipeId || rating === undefined) {
         return res.status(400).json({ message: 'Missing fields' });
       }
 
