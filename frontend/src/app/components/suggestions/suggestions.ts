@@ -12,14 +12,13 @@ import {RouterLink} from '@angular/router';
 })
 export class Suggestions implements OnInit {
   recipes: RecommendedRecipe[] = [];
-  userId: string = '694436a53401ec747acebea4';
 
   constructor(private recommendedService: RecommendedRecipeService) {}
 
 
 
   ngOnInit() {
-    this.recommendedService.getUserRecommendations(this.userId).subscribe(data => {
+    this.recommendedService.getRecommendationsForLoggedInUser().subscribe(data => {
 
       this.recipes = data.map(r => ({
         ...r,

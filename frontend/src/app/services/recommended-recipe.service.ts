@@ -24,6 +24,18 @@ export class RecommendedRecipeService {
     return this.http.get<RecommendedRecipe[]>(`${this.apiUrl}/user/${userId}`);
   }
 
+  //Note: We Don't Use JWT auth for demo purposes.
+  getRecommendationsForLoggedInUser(){
+
+    const userId = localStorage.getItem('userId');
+
+    if (!userId) {
+      throw new Error('User not logged in');
+    }
+
+    return this.getUserRecommendations(userId);
+  }
+
   getRecipesByIngredient(userId: string, ingredient: string): Observable<RecommendedRecipe[]> {
 
     return this.getUserRecommendations(userId);
