@@ -6,6 +6,8 @@ router.post('/', userController.addUser)
 
 router.get('/:id', userController.getUserById)
 
+router.post('/login', userController.login);
+
 router.put('/:id/ingredients', userController.addIngredient)
 
 router.put('/:id/ingredients/remove', userController.deleteIngredient)

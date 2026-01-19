@@ -1,54 +1,62 @@
-const userService = require('../services/user.service')
+const userService = require("../services/user.service");
 
-const  Kafka  = require('kafkajs');
+const Kafka = require("kafkajs");
 
-class UserController{
-    async addUser(req, res){
-        try{
-            const newUser = await userService.createUser(req.body)
-            res.status(201).json(newUser);
-        }catch (err){
-            res.status(400).json({ error: err.message });
-        }
+class UserController {
+  async addUser(req, res) {
+    try {
+      const newUser = await userService.createUser(req.body);
+      res.status(201).json(newUser);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  }
+
+  async getUserById(req, res) {
+    try {
+      const user = await userService.getUserById(req.params.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async login(req, res) {
+    const { email, password } = req.body;
+
+    const user = await userService.getUserByEmailAndPassword(email, password);
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    async getUserById(req, res){
+    res.json({
+      userId: user._id,
+    });
+  }
 
-        try{
-            const user = await userService.getUserById(req.params.id);
-            if(!user){
-                return res.status(404).json({message: "User not found"})
-            }
-            res.json(user)
-
-        }catch(error){
-            res.status(500).json({ error: error.message });
-        }
-       
+  async addIngredient(req, res) {
+    try {
+      await userService.addIngredient(req.params.id, req.body.ingredient);
+      const updatedUser = await userService.getUserById(req.params.id);
+      res.json(updatedUser);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
+  }
 
-    async addIngredient(req, res){
-        try{
-            await userService.addIngredient(req.params.id, req.body.ingredient)
-            const updatedUser = await userService.getUserById(req.params.id)
-            res.json(updatedUser)
-
-        }catch(err){
-            res.status(500).json({ error: err.message });
-        }
+  async deleteIngredient(req, res) {
+    try {
+      await userService.deleteIngredient(req.params.id, req.body.ingredient);
+      const updatedUser = await userService.getUserById(req.params.id);
+      res.json(updatedUser);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
-
-    async deleteIngredient(req, res){
-        try{
-            await userService.deleteIngredient(req.params.id, req.body.ingredient)
-            const updatedUser = await userService.getUserById(req.params.id)
-            res.json(updatedUser)
-        }catch(err){
-            res.status(500).json({ error: err.message });
-        }
-    }
-
-
+  }
 }
 
-module.exports = new UserController()
+module.exports = new UserController();
