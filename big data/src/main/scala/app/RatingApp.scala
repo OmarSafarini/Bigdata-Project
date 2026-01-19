@@ -21,7 +21,7 @@ object RatingApp {
 
     val recipes = RecipeRepository.loadAllRecipes(spark).limit(1000)
 
-    val checkpointPath = "file:///C:/tmp/spark-checkpoint-rating"
+    val checkpointPath = "file:///C:/tmp/spark-checkpointt-rating"
 
     val query = stream
       .selectExpr("CAST(value AS STRING)")

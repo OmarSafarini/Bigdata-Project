@@ -19,7 +19,7 @@ export class RecipeDetailComponent implements OnInit {
   hoverRating = 0;
   hasRated = false;
 
-  userId = "6932c445a283bf301c59bcd8"; // مؤقت
+  userId = "694436a53401ec747acebea4"; // مؤقت
 
   constructor(
     private route: ActivatedRoute,

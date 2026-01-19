@@ -3,7 +3,7 @@ const recipeService = require("../services/recipe.service");
 class RecipeController {
     async getAll(req, res) {
         try {
-            const limit = parseInt(req.query.limit) || 10;
+            const limit = parseInt(req.query.limit) || 20;
             const page = parseInt(req.query.page) || 1;
             const ingredient = req.query.ingredient || "";
 

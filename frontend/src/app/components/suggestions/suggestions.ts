@@ -12,7 +12,7 @@ import {RouterLink} from '@angular/router';
 })
 export class Suggestions implements OnInit {
   recipes: RecommendedRecipe[] = [];
-  userId: string = '6932c445a283bf301c59bcd8';
+  userId: string = '694436a53401ec747acebea4';
 
   constructor(private recommendedService: RecommendedRecipeService) {}
 
