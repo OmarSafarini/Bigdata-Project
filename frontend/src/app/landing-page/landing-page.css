@@ -52,17 +52,18 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-.btn-primary {
-  padding: 0.8rem 2rem;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  transition: transform 0.2s ease-in-out;
+.btn {
+  border-radius: 700px;
+  background-color: #4e3119; /* بني */
+  color: #ffffff;
+  transition: 0.3s;
 }
 
-.btn-primary:hover {
-  transform: scale(1.05);
+.btn:hover {
+  background-color: #6b4423; /* بني أفتح شوي بالتحويم */
+  color: #ffffff;
 }
+
 
 @media (max-width: 768px) {
   .masthead-title {
