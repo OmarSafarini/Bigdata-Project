@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
   user!: User;
 
   ingredientForm = new FormGroup({
-    frmIngredient: new FormControl('', Validators.required)
+  frmIngredient: new FormControl('', Validators.required)
   });
 
 

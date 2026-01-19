@@ -1,23 +1,23 @@
-<div class="page-wrapper" *ngIf="recipe">
+<div class="page-wrapper" style="background-color: rgb(220, 201, 179);" *ngIf="recipe">
   <div class="recipe-card">
-    <h2 class="recipe-title">{{ recipe!.title }}</h2>
+    <h2 class="recipe-title titles-colors">{{ recipe!.title }}</h2>
 
-    <div class="section">
+    <div class="section  titles-colors">
       <h5>Ingredients</h5>
       <p>{{ recipe!.ingredients }}</p>
     </div>
 
-    <div class="section">
+    <div class="section  titles-colors">
       <h5>Directions</h5>
       <p>{{ recipe!.directions }}</p>
     </div>
 
-    <div class="section">
+    <div class="section  titles-colors">
       <h5>NER</h5>
       <p>{{ recipe!.NER }}</p>
     </div>
 
-    <div class="rating-section">
+    <div class="rating-section  titles-colors">
       <h5>Rate this recipe</h5>
       <div class="stars">
         <span

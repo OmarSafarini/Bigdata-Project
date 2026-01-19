@@ -2,7 +2,7 @@ const Recipes = require("../models/Recipes");
 const Recipe = require("../models/Recipe");
 
 class RecipeService {
-    async getAllRecipes(page = 1, limit = 10) {
+    async getAllRecipes(page = 1, limit = 30) {
         const skip = (page - 1) * limit;
         return await Recipes.find().skip(skip).limit(limit);
     }
@@ -11,8 +11,8 @@ class RecipeService {
         return await Recipe.findById(id);
     }
 
-    async getAllSearchedRecipes(search = "", page = 1, limit = 10) {
-        const skip = (page - 1) * limit;
+    async getAllSearchedRecipes(search = "", page = 1, limit = 30) {
+        const skip = (page-1) * limit;
 
         const searchArray = search.split(',').map(s => s.trim()).filter(s => s);
 
