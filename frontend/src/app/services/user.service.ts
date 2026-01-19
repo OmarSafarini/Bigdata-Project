@@ -14,9 +14,11 @@ export class UserService {
     return this.http.get(this.apiUrl);
   }
 
-  getUserById(id: string): Observable<any> {
+
+  getUserById(id: string) : Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
+
 
 
   addUser(user: any): Observable<any> {
@@ -30,4 +32,23 @@ export class UserService {
   removeIngredient(userId: string, ingredient: string) {
     return this.http.put(`${this.apiUrl}/${userId}/ingredients/remove`, { ingredient });
   }
+
+  login(email: string, password: string) {
+    return this.http.post<{ userId: string }>(
+      `${this.apiUrl}/login`,
+      { email, password }
+    );
+  }
+
+  getLoggedInUser(): Observable<any> {
+    const userId = localStorage.getItem('userId');
+
+    if (!userId) {
+      throw new Error('User not logged in');
+    }
+
+    return this.getUserById(userId);
+  }
+
+
 }
