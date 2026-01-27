@@ -38,7 +38,7 @@ loadRecipes() {
       this.filteredRecipes = [...this.recipes];
       this.isLoading = false;
 
-      this.cdr.detectChanges(); // 🔹 Force Angular to update view
+      this.cdr.detectChanges();
     },
     error: (err) => {
       console.error(err);

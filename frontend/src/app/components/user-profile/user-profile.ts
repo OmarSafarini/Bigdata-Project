@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { UserService } from '../../services/user.service';
 import {User} from '../../models/user.model'
 import {FormControl, Validators, FormsModule, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,21 +21,26 @@ export class UserProfileComponent implements OnInit {
   });
 
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private authService: AuthService) {}
 
   ngOnInit() {
     this.loadData()
   }
 
   loadData(): void {
-    this.userService.getUserById('694436a53401ec747acebea4').subscribe({
+
+    const userId = this.authService.getUserId();
+    if (!userId) return;
+
+    this.userService.getUserById(userId).subscribe({
       next: data => {
-        this.user = data;
+          this.user = data;
       },
-      error: error => {
-        console.log(error);
+      error: err => {
+        console.log(err);
       }
     })
+
   }
 
   addIngredient() {
