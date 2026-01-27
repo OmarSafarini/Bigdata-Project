@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { Recipes } from '../models/recipes.model';
 export interface RecommendedRecipe {
   id: string;
   NER: string;
@@ -20,12 +20,11 @@ export class RecommendedRecipeService {
 
   constructor(private http: HttpClient) {}
 
-  getUserRecommendations(userId: string): Observable<RecommendedRecipe[]> {
-    return this.http.get<RecommendedRecipe[]>(`${this.apiUrl}/user/${userId}`);
+  getUserRecommendations(userId: string): Observable<Recipes[]> {
+    return this.http.get<Recipes[]>(`${this.apiUrl}/user/${userId}`);
   }
 
-  getRecipesByIngredient(userId: string, ingredient: string): Observable<RecommendedRecipe[]> {
-
+  getRecipesByIngredient(userId: string, ingredient: string): Observable<Recipes[]> {
     return this.getUserRecommendations(userId);
   }
 }

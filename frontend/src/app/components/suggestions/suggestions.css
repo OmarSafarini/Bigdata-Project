@@ -1,0 +1,86 @@
+.card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-title {
+  font-weight: 700;
+  color: #4e3119;
+  font-size: 1.25rem;
+}
+
+.card-text {
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  background-color: #6b4423;
+  color: #fff;
+  padding: 0.4rem 1rem;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  border-color: #6b4423;
+}
+
+.btn-primary:hover {
+  background-color: #4e3119;
+  transform: scale(1.05);
+}
+
+.search-box {
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 2.7rem 0.75rem 1rem;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 1rem;
+  transition: box-shadow .2s ease-in-out;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 5px rgba(78, 49, 25, 0.5);
+  border-color: #6b4423;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.showmore {
+  border-radius: 3em;
+  background-color: #4e3119;
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+.showmore:hover {
+  background-color: #6b4423;
+  color: #ffffff;
+}
