@@ -26,7 +26,7 @@ export class Signup {
     return this.signupForm.get('username');
   }
   handleSubmit() {
-    this.userService.addUser(this.signupForm).subscribe(
+    this.userService.addUser(this.signupForm.value).subscribe(
       data => {
         console.log(data);
       }

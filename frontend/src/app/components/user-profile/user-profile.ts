@@ -40,7 +40,6 @@ export class UserProfileComponent implements OnInit {
         console.log(err);
       }
     })
-
   }
 
   addIngredient() {

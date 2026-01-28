@@ -32,6 +32,7 @@ export class Login {
 
 
     this.userService.login(email!, password!).subscribe({next: data => {
+        console.log(data)
         this.authService.setUserId(data.userId);
         this.router.navigate(['/home']);
       },
