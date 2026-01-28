@@ -4,7 +4,9 @@ import { RecipesService } from '../services/recipes.service';
 import { CommonModule } from '@angular/common';
 import { Recipe } from '../models/recipe.model';
 import { ChangeDetectorRef } from '@angular/core';
-
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.html',
@@ -19,12 +21,15 @@ export class RecipeDetailComponent implements OnInit {
   hoverRating = 0;
   hasRated = false;
 
-  userId = "694436a53401ec747acebea4"; // مؤقت
+  user! : User; 
 
   constructor(
     private route: ActivatedRoute,
     private recipesService: RecipesService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService,
+    private userService : UserService
+
   ) {}
 
   ngOnInit(): void {
@@ -39,11 +44,27 @@ export class RecipeDetailComponent implements OnInit {
     });
   }
 
+  loadData(): void {
+
+    const userId = this.authService.getUserId();
+    if (!userId) return;
+
+    this.userService.getUserById(userId).subscribe({
+      next: data => {
+          this.user = data;
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+
+  }
+
   setRating(value: number) {
     if (!this.recipe || this.hasRated) return;
 
     const ratingPayload = {
-      userId: this.userId,
+      userId: this.user._id,
       recipeId: this.recipe._id,
       rating: value
     };
