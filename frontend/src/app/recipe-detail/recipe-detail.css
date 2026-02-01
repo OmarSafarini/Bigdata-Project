@@ -50,7 +50,7 @@
 }
 
 .stars span {
-  color: #ccc; 
+  color: #ccc;
   cursor: pointer;
   transition: color 0.2s;
   margin: 0 2px;
@@ -58,12 +58,12 @@
 }
 
 .stars span.filled {
-  color: #ffc107; 
+  color: #ffc107;
 }
 
 .stars span.disabled {
   cursor: default;
-  color: #ffc107; 
+  color: #ffc107;
 }
 
 .rating-text {
@@ -72,5 +72,5 @@
 }
 
 .titles-colors{
-  color:#4e3119 ;
+  color:var(--primary-color);
 }
