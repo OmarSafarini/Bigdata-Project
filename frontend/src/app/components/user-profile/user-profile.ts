@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     const userId = this.authService.getUserId();
+    // const id = '69651d65b74e1679a3ec05fb';
     if (userId) {
       this.loadData(userId);
     }

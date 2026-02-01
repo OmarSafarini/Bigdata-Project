@@ -7,6 +7,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
+
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.html',
@@ -21,7 +22,7 @@ export class RecipeDetailComponent implements OnInit {
   hoverRating = 0;
   hasRated = false;
 
-  user! : User; 
+  user! : User;
 
   constructor(
     private route: ActivatedRoute,
