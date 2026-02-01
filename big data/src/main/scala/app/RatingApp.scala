@@ -13,7 +13,7 @@ object RatingApp {
   def main(args: Array[String]): Unit = {
 
     // إنشاء Spark Session مع MongoDB
-    val spark = SparkSessionManager.getOrCreateMongoSession(SparkConfig.sparkRatingAppName)
+    val spark = SparkSessionManager.getOrCreateMongoSession()
     spark.sparkContext.setLogLevel("ERROR")
     import spark.implicits._
 

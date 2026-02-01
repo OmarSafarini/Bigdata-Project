@@ -14,7 +14,7 @@ import service.StringToHashCodeInt.stringToPositiveIntId
 object Recommendation {
 
   def recommendation(recipesDS: Dataset[Recipe], userIds: String): Unit = {
-    val spark = SparkSessionManager.getOrCreateMongoSession(SparkConfig.sparkRatingAppName)
+    val spark = SparkSessionManager.getOrCreateMongoSession()
     spark.sparkContext.setLogLevel("ERROR")
     import spark.implicits._
 
