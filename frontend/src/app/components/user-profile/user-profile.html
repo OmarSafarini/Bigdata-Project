@@ -1,38 +1,47 @@
-<div>
+@if(user && user.ingredients){
+  <div>
 
-  <div class="text-center p-5 text-white" style="background-color:#4e3119">
-    <h2 class="mb-1">{{ user?.name }}</h2>
-    <p class="fw-light mb-0">{{ user?.email }}</p>
+    <div class="text-center p-5 text-white" style="background-color:#4e3119">
+      <h2 class="mb-1">{{ user?.name }}</h2>
+      <p class="fw-light mb-0">{{ user?.email }}</p>
+    </div>
+
+
+    <div class="d-flex justify-content-center p-5 text-dark flex-column align-items-center">
+
+      <h3 class="mb-4 fw-semibold">My Ingredients</h3>
+
+      <ul class="list-group w-50 mb-4">
+        @for (ing of user?.ingredients; track $index) {
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ ing }}
+            <button (click)="removeIngredient(ing)"  class="btn btn-outline-danger btn-sm">x</button>
+          </li>
+        }
+      </ul>
+
+
+      <form [formGroup]="ingredientForm" (ngSubmit)="addIngredient()">
+        <div class="d-flex gap-2">
+          <input
+            formControlName="frmIngredient"
+            class="form-control"
+            placeholder="Add ingredient"
+          />
+
+          <button class="btn text-white" style="background-color:#4e3119" type="submit">Add</button>
+        </div>
+
+      </form>
+
+    </div>
+
   </div>
 
 
-  <div class="d-flex justify-content-center p-5 text-dark flex-column align-items-center">
-
-    <h3 class="mb-4 fw-semibold">My Ingredients</h3>
-
-    <ul class="list-group w-50 mb-4">
-      @for (ing of user?.ingredients; track $index) {
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          {{ ing }}
-          <button (click)="removeIngredient(ing)"  class="btn btn-outline-danger btn-sm">x</button>
-        </li>
-      }
-    </ul>
-
-
-    <form [formGroup]="ingredientForm" (ngSubmit)="addIngredient()">
-      <div class="d-flex gap-2">
-        <input
-          formControlName="frmIngredient"
-          class="form-control"
-          placeholder="Add ingredient"
-        />
-
-        <button class="btn text-white" style="background-color:#4e3119" type="submit">Add</button>
-      </div>
-
-    </form>
+} @else {
+  <div class="container d-flex flex-column  justify-content-center align-items-center">
+    <div style="font-size: xxx-large">loading...</div>
 
   </div>
-
-</div>
+}

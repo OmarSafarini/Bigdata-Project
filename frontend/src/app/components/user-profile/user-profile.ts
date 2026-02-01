@@ -14,7 +14,7 @@ import {AuthService} from '../../services/auth.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  user!: User;
+  user: User | null = null;
 
   ingredientForm = new FormGroup({
   frmIngredient: new FormControl('', Validators.required)
@@ -24,22 +24,22 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.loadData()
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.loadData(userId);
+    }
+
   }
 
-  loadData(): void {
-
-    const userId = this.authService.getUserId();
-    if (!userId) return;
-
+  loadData(userId: string): void {
     this.userService.getUserById(userId).subscribe({
       next: data => {
-          this.user = data;
+        this.user = data;
       },
       error: err => {
-        console.log(err);
+        console.error(err);
       }
-    })
+    });
   }
 
   addIngredient() {
@@ -50,34 +50,29 @@ export class UserProfileComponent implements OnInit {
 
     const ingredientValue = this.ingredientForm.get('frmIngredient')?.value;
 
-    if (ingredientValue != null) {
+    if (ingredientValue && this.user) {
       this.user.ingredients.push(ingredientValue);
 
       this.userService.addIngredient(this.user._id, ingredientValue).subscribe({
         next: data => {
-          this.user = { ...data };
           console.log(data);
           this.ingredientForm.reset();
         },
         error: error => {
           console.log(error);
         }
-      })
-
+      });
     }
   }
 
   removeIngredient(ingredient: string) {
+    if (!this.user) return;
 
     this.user.ingredients = this.user.ingredients.filter(i => i !== ingredient);
 
     this.userService.removeIngredient(this.user._id, ingredient).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.error(err);
-      }
+      next: data => console.log(data),
+      error: err => console.error(err)
     });
   }
 
