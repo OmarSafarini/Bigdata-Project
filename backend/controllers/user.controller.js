@@ -15,18 +15,10 @@ class UserController {
   async getUserById(req, res) {
     try {
       const user = await userService.getUserById(req.params.id);
-
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-      res.setHeader("Cache-Control", "no-store");
-      // res.json(user);
-
-      res.json({
-        name: user.name,
-        email: user.email,
-      });
-
+      res.json(user);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
