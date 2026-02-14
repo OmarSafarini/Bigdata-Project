@@ -25,20 +25,20 @@ class UserController {
   }
 
   async login(req, res) {
-  const { email, password } = req.body;
+    const { email, password } = req.body;
 
-  console.log('LOGIN BODY:', req.body);
+    console.log("LOGIN BODY:", req.body);
 
-  const user = await userService.getUserByEmailAndPassword(email, password);
+    const user = await userService.getUserByEmailAndPassword(email, password);
 
-  console.log('FOUND USER:', user);
+    console.log("FOUND USER:", user);
 
-  if (!user) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    res.json({ userId: user._id });
   }
-
-  res.json({ userId: user._id });
-}
 
   async addIngredient(req, res) {
     try {
