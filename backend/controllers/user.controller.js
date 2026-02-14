@@ -15,30 +15,38 @@ class UserController {
   async getUserById(req, res) {
     try {
       const user = await userService.getUserById(req.params.id);
+
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-      res.json(user);
+      res.setHeader("Cache-Control", "no-store");
+      // res.json(user);
+
+      res.json({
+        name: user.name,
+        email: user.email,
+      });
+
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   }
 
   async login(req, res) {
-  const { email, password } = req.body;
+    const { email, password } = req.body;
 
-  console.log('LOGIN BODY:', req.body);
+    console.log("LOGIN BODY:", req.body);
 
-  const user = await userService.getUserByEmailAndPassword(email, password);
+    const user = await userService.getUserByEmailAndPassword(email, password);
 
-  console.log('FOUND USER:', user);
+    console.log("FOUND USER:", user);
 
-  if (!user) {
-    return res.status(401).json({ message: "Invalid credentials" });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    res.json({ userId: user._id });
   }
-
-  res.json({ userId: user._id });
-}
 
   async addIngredient(req, res) {
     try {

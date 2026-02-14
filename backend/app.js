@@ -9,7 +9,7 @@ const recommendedRouter = require('./routes/recommendedRecipe.routes');
 
 const app = express();
 
-app.use(cors());
+app.use(cors("*"));
 app.use(express.json());
 
 mongoose.connect("mongodb://127.0.0.1:27017/recipes")
